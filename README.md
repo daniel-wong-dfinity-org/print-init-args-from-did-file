@@ -14,10 +14,12 @@ Furthermore, suppose you have a blob that was constructed (possibly by someone
 else) like so:
 
 ```rust
-let blob = candid::Encode(&Hello).unwrap();
+let blob = candid::Encode(&Hello { ... }).unwrap();
 ```
 
 How would you take foo.did and this blob, and print it out nicely?
+
+## Related Work
 
 When you do
 
