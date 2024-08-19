@@ -28,9 +28,10 @@ dfx canister call --candid foo.did hello '(record { ... })'
 ```
 
 dfx reads foo.did, and uses that to "nicely" print out the response. That is, it
-does not print opaque field IDs, but rather field names, according to what
-foo.did says the definition of Response is. That is sort of what we are trying
-to do here.
+does not print opaque field IDs, but rather field names, according to the
+definition of Response in foo.did. That is sort of what we are trying to do
+here. The difference is that our type is not associated with an individual
+method, but rather, with the service as a whole.
 
 
 # How src/lib.rs was "written":
