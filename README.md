@@ -47,6 +47,6 @@ cargo run
 
 All this does is compile src/main.rs and run it. The only other source files are
 foo.did and src/lib.rs, but lib.rs hardly counts, since it isn't hand-written.
-Anyway, foo.did gets used via the include_str! macro (which is called by
-main.rs). Therefore, to understand how the problem as described in the first
-section is solved, simply read src/main.rs.
+Anyway, main.rs uses foo.did gets used via include_str!. Therefore, to
+understand how to solve the problem described in the first section ☝️, "simply"
+read src/main.rs.
