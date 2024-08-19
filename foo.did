@@ -1,0 +1,7 @@
+type Hello = record {
+    i : opt nat64;
+};
+
+service : (Hello) -> {
+  jump : () -> ();
+}

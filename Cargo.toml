@@ -1,0 +1,10 @@
+[package]
+name = "print-candid"
+version = "0.0.1"
+edition = "2021"
+
+[dependencies]
+candid = "0.10"
+candid_parser = "0.1"
+ic-cdk = "0.15"
+serde = "1.0"
