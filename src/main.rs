@@ -25,11 +25,13 @@ fn unwrap_type(type_: candid::types::Type) -> candid::types::TypeInner {
 //
 //     1. Read foo.did (ofc). Parse it.
 //
-//     2. Extract the initialization type. This requires lots of tedious wrapping. In fact, most of
-//        the code is dedicated to this (rather boring) step.
+//     2. Extract the initialization type. This requires lots of tedious
+//        wrapping. In fact, most of the code is dedicated to this (rather
+//        boring) step.
 //
-//     3. Finally, intepret the blob by constructing an IDLArgs from the blob. To do this, we need
-//        supporting data, primarily from step 2, but also step 1.
+//     3. Finally, intepret the blob by constructing an IDLArgs from the blob.
+//        To do this, we need supporting data, primarily from step 2, but also
+//        step 1.
 fn main() {
     // Step 0:
     // This represents the blob that someone "sent" us.
