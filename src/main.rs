@@ -35,7 +35,7 @@ fn unwrap_type(type_: candid::types::Type) -> candid::types::TypeInner {
 fn main() {
     // Step 0:
     // This represents the blob that someone "sent" us.
-    let encoded = Encode!(&Init { i : Some(42) }).unwrap();
+    let encoded = Encode!(&Init { i: Some(42) }).unwrap();
 
     // 1:
     // As best as I can tell, type_env is basically a map from name to type. For
@@ -55,7 +55,7 @@ fn main() {
     //
     // (The reason that type_ has an underscore is to avoid collision with the
     // type keyword.)
-    let (type_env, type_)  = CandidSource::Text(include_str!("../foo.did"))
+    let (type_env, type_) = CandidSource::Text(include_str!("../foo.did"))
         .load()
         .unwrap();
 
@@ -87,12 +87,8 @@ fn main() {
     println!();
 
     // 3: Interpret the blob.
-    let decoded = candid::IDLArgs::from_bytes_with_types(
-        &encoded,
-        &type_env,
-        &[init.clone()],
-    )
-    .unwrap();
+    let decoded =
+        candid::IDLArgs::from_bytes_with_types(&encoded, &type_env, &[init.clone()]).unwrap();
     // Finally, output the thing that we originally wanted: a comprehensible
     // explanation of what's in the blob (i.e. `encoded`).
     println!("Decoded: {}", decoded);
