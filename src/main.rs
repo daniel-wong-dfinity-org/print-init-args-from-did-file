@@ -38,26 +38,31 @@ fn main() {
     let encoded = Encode!(&Init { i : Some(42) }).unwrap();
 
     // 1:
-    // As best as I can tell, type_env is basically a map from name to type. For example, in
-    // foo.did, there is `type Hello = record { ... };`. As a result, load will return a type_env
-    // with an entry that conceptually looks like
+    // As best as I can tell, type_env is basically a map from name to type. For
+    // example, in foo.did, there is `type Hello = record { ... };`. As a
+    // result, load will return a type_env with an entry that conceptually looks
+    // like
     //
     //     "Hello" => Record { fields: [...] }
     //
-    // Whereas, type_ represents the service. For example, in foo.did, we have `service : (Hello) {
-    // ... }`. Therefore, load returns a type_ that looks (again, conceptually!) something like
+    // Whereas, type_ represents the service. For example, in foo.did, we have
+    // `service : (Hello) { ... }`. Therefore, load returns a type_ that looks
+    // (again, conceptually!) something like
     //
     //     Service { init: Hello, methods: [ ... ] }
     //
     // Does this behavior for load "make sense"? 🤷
     //
-    // (The reason that type_ has an underscore is to avoid collision with the type keyword.)
-    let (type_env, type_)  = CandidSource::Text(include_str!("../foo.did")).load().unwrap();
+    // (The reason that type_ has an underscore is to avoid collision with the
+    // type keyword.)
+    let (type_env, type_)  = CandidSource::Text(include_str!("../foo.did"))
+        .load()
+        .unwrap();
 
     // 2: Dig out the datum that we are interest from within foo.did.
 
-    // For reasons, we need to do tons of unwrapping to get to datum of interesting (i.e. the
-    // initialization argument type) within type_.
+    // For reasons, we need to do tons of unwrapping to get to datum of
+    // interesting (i.e. the initialization argument type) within type_.
     let type_ = type_.unwrap();
     let (mut a, _ignored): (Vec<candid::types::Type>, _) = match unwrap_type(type_) {
         // Why a service is represented using Class? 🤷
@@ -67,20 +72,28 @@ fn main() {
     assert_eq!(a.len(), 1, "{:#?}", a);
     let init = unwrap_type(a.pop().unwrap());
 
-    // So, buried deep within the original type_, all we have is the name of the initialization
-    // type.
+    // So, buried deep within the original type_, all we have is the name of the
+    // initialization type.
     let init = match init {
         candid::types::TypeInner::Var(ok) => ok,
         _ => panic!(),
     };
 
-    // To convert the name of the initialization type, we must look it up in type_env.
+    // To convert the name of the initialization type, we must look it up in
+    // type_env.
     let init = type_env.find_type(&init).unwrap();
 
     println!("Type: {:#?}", init);
     println!();
 
     // 3: Interpret the blob.
-    let decoded = candid::IDLArgs::from_bytes_with_types(&encoded, &type_env, &[init.clone()]).unwrap();
+    let decoded = candid::IDLArgs::from_bytes_with_types(
+        &encoded,
+        &type_env,
+        &[init.clone()],
+    )
+    .unwrap();
+    // Finally, output the thing that we originally wanted: a comprehensible
+    // explanation of what's in the blob (i.e. `encoded`).
     println!("Decoded: {:#?}", decoded);
 }
