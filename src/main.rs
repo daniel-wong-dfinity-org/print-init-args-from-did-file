@@ -59,7 +59,7 @@ fn main() {
         .load()
         .unwrap();
 
-    // 2: Dig out the datum that we are interest from within foo.did.
+    // 2: Dig out the supporting data from within foo.did.
 
     // For reasons, we need to do tons of unwrapping to get to datum of
     // interesting (i.e. the initialization argument type) within type_.
@@ -95,5 +95,5 @@ fn main() {
     .unwrap();
     // Finally, output the thing that we originally wanted: a comprehensible
     // explanation of what's in the blob (i.e. `encoded`).
-    println!("Decoded: {:#?}", decoded);
+    println!("Decoded: {}", decoded);
 }
