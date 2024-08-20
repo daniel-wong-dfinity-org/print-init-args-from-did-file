@@ -16,8 +16,8 @@ fn unwrap_type(type_: candid::types::Type) -> candid::types::TypeInner {
 // In addition to the blob you are trying to interpret, this requires two
 // supporting arguments (three arguments in total). These additional pieces of
 // information are gleaned from the .did file. However, extracting those pieces
-// of information requires jumping through some hoops. Navigating that labrynth
-// is the main point of this PoC.
+// of information requires jumping through some hoops. Showing how one navigates
+// that labrynth is the main point of this PoC.
 //
 // Overview of what is going on in here:
 //
