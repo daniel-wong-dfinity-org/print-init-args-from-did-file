@@ -11,6 +11,14 @@ fn unwrap_type(type_: candid::types::Type) -> candid::types::TypeInner {
     Rc::into_inner(type_).unwrap()
 }
 
+// TL;DR: You need to call candid::IDLArgs::from_bytes_with_types.
+//
+// In addition to the blob you are trying to interpret, this requires two
+// supporting arguments (three arguments in total). These additional pieces of
+// information are gleaned from the .did file. However, extracting those pieces
+// of information requires jumping through some hoops. Navigating that labrynth
+// is the main point of this PoC.
+//
 // Overview of what is going on in here:
 //
 //     0. "Receive" the blob.
